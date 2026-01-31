@@ -1,0 +1,4 @@
+{
+    "prisma.enableLanguageServer": false,
+    "prisma.pinToPrisma6": true
+}
