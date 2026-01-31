@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3030;
 const startServer = async () => {
     try {
         const server = app.listen(PORT, () => {
-            console.log(`http://localhost:${PORT}`);
+            console.log(`Your server is running on http://localhost:${PORT}`);
         });
 
         // Graceful Shutdown Handling
