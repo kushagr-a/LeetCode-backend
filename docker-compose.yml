@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres:latest
+    container_name: leetcode_db
+    environment:
+      - POSTGRES_DB= leetcode
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres123
+    ports:
+      - "5435:5432"
+    restart: unless-stopped
