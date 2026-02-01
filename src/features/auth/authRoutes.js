@@ -9,4 +9,12 @@ authRoutes.route("/check").get((req, res) => {
     });
 });
 
+authRoutes.route("/register").post()
+
+authRoutes.route("/login").post()
+
+authRoutes.route("/logout").post()
+
+authRoutes.route("/check").get()
+
 export default authRoutes;
