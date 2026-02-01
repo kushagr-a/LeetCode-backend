@@ -2,19 +2,19 @@ import { Router } from "express";
 
 const authRoutes = Router();
 
-authRoutes.route("/check").get((req, res) => {
-    res.status(200).json({
-        success: true,
-        message: "Auth route is working!"
-    });
-});
+import {
+    registerUser,
+    loginUser,
+    logoutUser,
+    checkAuth
+} from "../auth/authController.js"
 
-authRoutes.route("/register").post()
+authRoutes.route("/register").post(registerUser)
 
-authRoutes.route("/login").post()
+authRoutes.route("/login").post(loginUser)
 
-authRoutes.route("/logout").post()
+authRoutes.route("/logout").post(logoutUser)
 
-authRoutes.route("/check").get()
+authRoutes.route("/check").get(checkAuth)
 
 export default authRoutes;

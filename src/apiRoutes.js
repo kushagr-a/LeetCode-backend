@@ -8,4 +8,4 @@ const apiRoutes = Router();
 // Here use different route files with ApiRoutes
 apiRoutes.use("/auth", authRoutes);
 
-export default apiRoutes;
+export default apiRoutes; 
