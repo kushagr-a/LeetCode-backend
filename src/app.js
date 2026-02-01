@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import apiRoutes from "./apiRoutes.js";
 
@@ -9,6 +10,7 @@ const app = express();
 // Middleware
 app.use(express.json({ limit: '50kb' }));
 app.use(express.urlencoded({ extended: true, limit: '50kb' }));
+app.use(cookieParser());
 app.use(morgan('dev'));
 
 // CORS Configuration
