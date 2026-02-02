@@ -173,4 +173,10 @@ export const logoutUser = async (req, res) => {
     }
 };
 
-export const checkAuth = async (req, res) => { }
+export const checkAuth = async (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "User is authenticated",
+        user: req.user
+    });
+}
