@@ -80,7 +80,78 @@ export const registerUser = async (req, res) => {
     }
 }
 
-export const loginUser = async (req, res) => { };
+export const loginUser = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        if (!email || !password) {
+            return res.status(400).json({
+                success: false,
+                message: "Email and password are required"
+            });
+        }
+
+        // Find user by email
+        const user = await db.user.findUnique({
+            where: { email }
+        });
+
+        if (!user) {
+            return res.status(404).json({
+                success: false,
+                message: "User not found with this email"
+            });
+        }
+
+        // Compare password
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordValid) {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid credentials"
+            });
+        }
+
+        // Generate JWT Token
+        const token = jwt.sign(
+            {
+                id: user.id
+            },
+            process.env.JWT_SECRET,
+            {
+                expiresIn: '2h'
+            }
+        )
+
+        // set cookie
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax",
+            maxAge: 2 * 60 * 60 * 1000 // 2 hours
+        });
+
+        res.status(200).json({
+            success: true,
+            message: "User logged in successfully",
+            user: {
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                role: user.role,
+                Image: user?.image
+            },
+            accessToken: token
+        })
+    } catch (error) {
+        console.error("Error in loginUser:", error);
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
+};
 
 export const logoutUser = async (req, res) => { };
 
