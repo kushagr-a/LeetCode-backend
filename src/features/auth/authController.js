@@ -153,6 +153,24 @@ export const loginUser = async (req, res) => {
     }
 };
 
-export const logoutUser = async (req, res) => { };
+export const logoutUser = async (req, res) => {
+    try {
+        res.clearCookie("jwt", {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "production",
+            sameSite: "lax"
+        })
+        res.status(200).json({
+            success: true,
+            message: "User logged out successfully"
+        })
+    } catch (error) {
+        console.error("Error in logout:", error);
+        res.status(500).json({
+            success: false,
+            message: "Internal Server Error"
+        });
+    }
+};
 
 export const checkAuth = async (req, res) => { }
