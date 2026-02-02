@@ -5,7 +5,7 @@ export const verifyJwt = async (req, res, next) => {
     try {
         // Token from cookie OR Authorization header
         const token = req.cookies?.token ||
-            req.header("Authorization")?.replace("Bearer ", "");
+            req.headers.authorization?.split(" ")[1];
 
         if (!token) {
             return res.status(401).json({
