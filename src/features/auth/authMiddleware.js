@@ -73,3 +73,5 @@ export const verifyJwt = async (req, res, next) => {
         });
     }
 }
+
+// How much input belongs to the fuzzy sets
