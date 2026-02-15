@@ -179,4 +179,4 @@ export const checkAuth = async (req, res) => {
         message: "User is authenticated",
         user: req.user
     });
-}
+} 
