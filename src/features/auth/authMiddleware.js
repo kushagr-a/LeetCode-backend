@@ -74,4 +74,31 @@ export const verifyJwt = async (req, res, next) => {
     }
 }
 
-// How much input belongs to the fuzzy sets
+export const checkAdmin = async (req, res, next) => {
+    try {
+        const userId = req.userId
+
+        const user = await db.user.findUnique({
+            where: {
+                id: userId
+            },
+            select: {
+                role: true
+            }
+        })
+
+        if (!user || user.role !== "ADMIN") {
+            return res.status(401).json({
+                success: false,
+                message: "Access denied. User is not an admin"
+            })
+        }
+
+        next()
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Authentication failed",
+        });
+    }
+}
